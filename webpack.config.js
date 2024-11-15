@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const PrettierPlugin = require("prettier-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+// const TerserPlugin = require("terser-webpack-plugin");
 const getPackageJson = require("./scripts/getPackageJson");
 
 const { version, name, license, repository, author } = getPackageJson(
@@ -28,7 +28,7 @@ const banner = `
 
 module.exports = {
   mode: "production",
-  devtool: "source-map",
+  devtool: false, // "source-map" don't need to generate index.js.map for variables mapping
   entry: "./src/expression/index.js",
   output: {
     filename: "index.js",
@@ -37,14 +37,14 @@ module.exports = {
     libraryTarget: "umd",
     clean: true,
   },
-  // optimization: {
-  //   minimize: true,
-  //   minimizer: [
-  //     new TerserPlugin({
-  //       extractComments: false,
-  //     }),
-  //   ],
-  // },
+  optimization: {
+    minimize: false, //  at initial stage don't need to minify files
+    // minimizer: [
+    //   new TerserPlugin({
+    //     extractComments: false,
+    //   }),
+    // ],
+  },
   devServer: {
     open: true,
     hot: true,
@@ -64,5 +64,5 @@ module.exports = {
     ],
   },
   plugins: [new PrettierPlugin(), new webpack.BannerPlugin(banner)],
-  externals: { "moment-timezone": "moment-timezone" },
+  // externals: { "moment-timezone": "moment-timezone" },
 };
