@@ -17,6 +17,9 @@
   },
   "author": "Yash Khatri (https://github.com/yashkk3640)",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "https://github.com/yashkk3640/expression-evaluation/issues"
   },
