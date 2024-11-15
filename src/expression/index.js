@@ -26,7 +26,7 @@ const EVALUATE_EXPR_LINES = (expressionLines, parameters) => {
       expressionLines.replace(/,/g, FUNCTION_ARGUMENT_SEPARATOR),
       parameters
     )
-  );
+  ).replaceAll(FUNCTION_ARGUMENT_SEPARATOR, ",");
 };
 
 const prepareDynamicValue = (originalValue, parameters) => {
@@ -68,7 +68,7 @@ export {
   validateFunction,
   renderExpression,
   expressionResolver,
-  evaluateExprFromString,
+  // evaluateExprFromString,
   EVALUATE_EXPR_LINES,
 };
 
