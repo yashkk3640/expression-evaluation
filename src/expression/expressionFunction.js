@@ -17,7 +17,7 @@ export const validateFunction = (
   strict = false
 ) => {
   const bracketStartAt = strFunCall.indexOf("(");
-  if (bracketStartAt !== -1) {
+  if (bracketStartAt > 0) {
     if (
       strFunCall.match(/\(/g).length === (strFunCall.match(/\)/g) || []).length
     ) {
@@ -30,6 +30,7 @@ export const validateFunction = (
         if (isValid) {
           const isSameNoOfArgs =
             args
+              .replaceAll(FUNCTION_ARGUMENT_SEPARATOR, ",")
               .split(",")
               .map((ar) => ar.trim())
               .filter((ar) => ar !== "").length === functions[funName].noOfArgs;
@@ -43,7 +44,7 @@ export const validateFunction = (
         }
       }
       setMessage(`Invalid function name ${funName}.`);
-      return false;
+      return true;
     }
     setMessage("Brackets are not matching up properly.");
     return false;
@@ -109,12 +110,16 @@ export const evaluateExprFromString = (strFunCall = "") =>
 export const evaluateFunction = (strFunCall = "") => {
   if (typeof strFunCall === "string") {
     const bracketStartAt = strFunCall.indexOf("(");
-    if (bracketStartAt !== -1) {
+    if (
+      bracketStartAt !== -1 &&
+      functions[strFunCall.substring(0, bracketStartAt).trim()]
+    ) {
       return callFunction(
         strFunCall.substring(0, bracketStartAt).trim(),
         strFunCall.substring(bracketStartAt + 1, strFunCall.length - 1).trim()
       );
     }
+    return strFunCall.replaceAll(FUNCTION_ARGUMENT_SEPARATOR, ",");
   }
   return strFunCall;
 };
