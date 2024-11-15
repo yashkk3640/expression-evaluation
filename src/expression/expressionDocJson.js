@@ -1,4 +1,4 @@
-const moment = require("moment-timezone");
+const dayjs = require("dayjs");
 const { TIME_ZONE } = require("../enum");
 
 export const EXPRESSION_TABLE = [
@@ -178,7 +178,7 @@ export const EXPRESSION_TABLE = [
         key: "DATE_LT",
         data: {
           call: "DATE_LT(Date1,Date2)",
-          desc: "Returns TRUE if Is Date1 less  than Date2, else returns FALSE",
+          desc: "Returns TRUE if Is Date1 less than Date2, else returns FALSE",
           example: "DATE_LT(yesterday,yesterday) => false",
           noOfArgs: 2,
         },
@@ -206,7 +206,7 @@ export const EXPRESSION_TABLE = [
         data: {
           call: "NOW()",
           desc: "Returns a Current Datetime",
-          example: `NOW() => ${moment.tz(TIME_ZONE).format()}`,
+          example: `NOW() => ${dayjs().tz(TIME_ZONE).format()}`,
           noOfArgs: 0,
         },
       },
@@ -288,11 +288,46 @@ export const EXPRESSION_TABLE = [
         },
       },
       {
+        key: "CONTAINS",
+        data: {
+          call: "CONTAINS(String1,String2)",
+          desc: "Returns TRUE if String2 is present in String1, or else FALSE",
+          example: "CONTAINS(ticket number,ticket) => true",
+          noOfArgs: 2,
+        },
+      },
+      {
         key: "CAMEL_TO_TITLE",
         data: {
           call: "CAMEL_TO_TITLE(String)",
           desc: "Results in a string that in Title Case",
           example: "CAMEL_TO_TITLE(ticketNumber) => Ticket Number",
+          noOfArgs: 1,
+        },
+      },
+    ],
+  },
+  {
+    key: "push",
+    data: {
+      call: "PUSH",
+      desc: "Add element in Array",
+      example: "PUSH(array,3) => [(all element array),3]",
+      noOfArgs: 2,
+    },
+  },
+  {
+    key: "special",
+    data: {
+      call: "Special Function",
+    },
+    children: [
+      {
+        key: "sum",
+        data: {
+          call: "SUM",
+          desc: "Sum of Elements separated by ':' or Sum of property from Array by '::'",
+          example: "SUM($$array$$::propertyName)",
           noOfArgs: 1,
         },
       },
