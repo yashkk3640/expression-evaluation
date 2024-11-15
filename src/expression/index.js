@@ -1,4 +1,11 @@
 import _get from "lodash.get";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 import {
   evaluateFunction,
   FUNCTION_ARGUMENT_SEPARATOR,
@@ -7,6 +14,8 @@ import {
   validateFunction,
   renderExpression,
 } from "./expressionFunction";
+
+const { EXPRESSION_TABLE } = require("./expressionDocJson");
 
 const EVALUATE_EXPR_LINES = (expressionLines, parameters) => {
   if (expressionLines == null) {
