@@ -1976,7 +1976,7 @@ var EVALUATE_EXPR_LINES = function EVALUATE_EXPR_LINES(expressionLines, paramete
     return expressionLines;
   }
 
-  return evaluateExprFromString(prepareDynamicValue(expressionLines.replace(/,/g, FUNCTION_ARGUMENT_SEPARATOR), parameters));
+  return evaluateExprFromString(prepareDynamicValue(expressionLines.replace(/,/g, FUNCTION_ARGUMENT_SEPARATOR), parameters)).replaceAll(FUNCTION_ARGUMENT_SEPARATOR, ",");
 };
 
 var prepareDynamicValue = function prepareDynamicValue(originalValue, parameters) {
