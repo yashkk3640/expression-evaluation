@@ -1,6 +1,6 @@
 /*!
  * 
- *   @yashkk3640/expression-evaluation v0.0.1
+ *   @yashkk3640/expression-evaluation v0.0.2
  *   https://github.com/yashkk3640/expression-evaluation
  *
  *   Copyright (c) Yash Khatri (https://github.com/yashkk3640) and project contributors.
