@@ -1726,7 +1726,6 @@ __webpack_require__.d(__webpack_exports__, {
   "EVALUATE_EXPR_LINES": () => (/* binding */ EVALUATE_EXPR_LINES),
   "EXPRESSION_TABLE": () => (/* binding */ EXPRESSION_TABLE),
   "default": () => (/* binding */ expression),
-  "evaluateExprFromString": () => (/* reexport */ evaluateExprFromString),
   "expressionResolver": () => (/* binding */ expressionResolver),
   "renderExpression": () => (/* reexport */ renderExpression),
   "validateFunction": () => (/* reexport */ validateFunction)
