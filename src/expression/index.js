@@ -7,7 +7,18 @@ import {
   validateFunction,
   renderExpression,
 } from "./expressionFunction";
-import { EXPRESSION_TABLE } from "./expressionDocJson";
+
+const EVALUATE_EXPR_LINES = (expressionLines, parameters) => {
+  if (expressionLines == null) {
+    return expressionLines;
+  }
+  return evaluateExprFromString(
+    prepareDynamicValue(
+      expressionLines.replace(/,/g, FUNCTION_ARGUMENT_SEPARATOR),
+      parameters
+    )
+  );
+};
 
 const prepareDynamicValue = (originalValue, parameters) => {
   if (typeof originalValue === "string") {
@@ -49,6 +60,7 @@ export {
   renderExpression,
   expressionResolver,
   evaluateExprFromString,
+  EVALUATE_EXPR_LINES,
 };
 
 export default expressionResolver;
