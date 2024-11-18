@@ -44,7 +44,7 @@ export const validateFunction = (
         }
       }
       setMessage(`Invalid function name ${funName}.`);
-      return true;
+      return strict ? false : true;
     }
     setMessage("Brackets are not matching up properly.");
     return false;
