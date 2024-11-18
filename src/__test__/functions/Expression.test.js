@@ -1,7 +1,16 @@
 const { expressionResolver } = require("../../expression");
 const { validateFunction } = require("../../expression/expressionFunction");
-const moment = require("moment-timezone");
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
+const isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
+const isSameOrBefore = require("dayjs/plugin/isSameOrBefore");
 const { TIME_ZONE } = require("../../enum");
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 const NEEDS_TO_VALIDATE = [
   { expr: "MUL(10,5)", isValid: true, msgReg: /^$/i },
@@ -82,23 +91,23 @@ const EXECUTE = [
   {
     expr: "AND(DATE_GT($$var1$$,$$var2$$),DATE_GTE($$var2$$,$$var3$$))",
     vars: {
-      var1: moment().add(2, "day").format(),
-      var2: moment().add(1, "day").format(),
-      var3: moment().add(1, "day").format(),
+      var1: dayjs().add(2, "day").format(),
+      var2: dayjs().add(1, "day").format(),
+      var3: dayjs().add(1, "day").format(),
     },
     ans: true,
   },
   {
     expr: "AND(DATE_LTE($$var1$$,NOW()),DATE_LT(ADD_IN_DATE(NOW(),-2,days),$$var1$$))",
     vars: {
-      var1: moment().subtract(1, "day").format(),
+      var1: dayjs().subtract(1, "day").format(),
     },
     ans: true,
   },
   {
     expr: "DATE_FORMAT(NOW(),MM/DD/YY HH:mm)",
     vars: {},
-    ans: moment.tz(TIME_ZONE).format("MM/DD/YY HH:mm"),
+    ans: dayjs().tz(TIME_ZONE).format("MM/DD/YY HH:mm"),
   },
   {
     expr: "NOT_EMPTY($$var0$$)",
@@ -165,7 +174,7 @@ const EXECUTE = [
 it("expression validation text", () => {
   NEEDS_TO_VALIDATE.map(({ expr, isValid, msgReg }) => {
     let invalidMsg = "";
-    const valid = validateFunction(expr, (msg) => (invalidMsg = msg));
+    const valid = validateFunction(expr, (msg) => (invalidMsg = msg), true);
     expect(valid).toBe(isValid);
     expect(invalidMsg).toMatch(msgReg);
   });
